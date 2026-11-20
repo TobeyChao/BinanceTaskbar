@@ -10,7 +10,11 @@ Windows 11 任务栏小工具，显示 Binance USDⓈ-M / TradFi 永续合约的
 - 英伟达：`NVDAUSDT`
 - 闪迪：`SNDKUSDT`
 
-## 直接运行
+## 下载与运行
+
+从 [GitHub Releases](https://github.com/TobeyChao/BinanceTaskbar/releases/latest) 下载 BinanceTaskbar.exe 并双击运行。这是自包含版本，不需要另外安装 .NET。
+
+## 旧版本地运行
 
 双击 `dist\BinanceTaskbar.exe`。这是自包含版本，不需要另外安装 .NET。
 
@@ -60,6 +64,7 @@ Windows 11 任务栏小工具，显示 Binance USDⓈ-M / TradFi 永续合约的
 Windows 11 不允许普通应用真正插入系统任务栏。本工具使用无边框置顶窗口贴靠任务栏空白区域，不会修改系统任务栏。
 
 行情来自 Binance Futures 公共接口，不需要 API Key。网络无法直连 Binance 时，请先配置系统代理或 VPN。
+
 
 
 
