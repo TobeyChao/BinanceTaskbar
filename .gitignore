@@ -1,0 +1,21 @@
+# Build output
+**/bin/
+**/obj/
+/dist/
+.vs/
+*.user
+*.suo
+
+# Local test artifacts
+/taskbar-*.png
+/click-*.png
+/final-refresh-*.png
+/refresh-frame-*.png
+/widget-frame-*.png
+/startup-*.png
+/fixed-position-menu.png
+/ws-test*
+/TaskbarDockService.AttachToTaskbar(this)
+
+# Keep repository preview
+!/docs/preview.png

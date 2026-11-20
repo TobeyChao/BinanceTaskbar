@@ -1,0 +1,156 @@
+<Window x:Class="BinanceTaskbar.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:models="clr-namespace:BinanceTaskbar.Models"
+        xmlns:controls="clr-namespace:BinanceTaskbar.Controls"
+        Title="比特币 / 英伟达 / 闪迪行情"
+        Width="760"
+        Height="34"
+        WindowStyle="None"
+        AllowsTransparency="True"
+        Background="Transparent"
+        ShowInTaskbar="False"
+        ResizeMode="NoResize"
+        Topmost="True"
+        WindowStartupLocation="Manual"
+        ShowActivated="False"
+        SnapsToDevicePixels="True"
+        UseLayoutRounding="True"
+        FontFamily="Segoe UI Variable Text, Microsoft YaHei UI"
+        Foreground="{Binding PrimaryTextBrush}"
+        TextOptions.TextFormattingMode="Display">
+    <Window.Resources>
+        <Style x:Key="ChangeTextStyle" TargetType="TextBlock">
+            <Setter Property="Visibility" Value="Visible"/>
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding DataContext.Show24hChange, RelativeSource={RelativeSource AncestorType=Window}}" Value="False">
+                    <Setter Property="Visibility" Value="Collapsed"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
+
+    <Border x:Name="RootBorder"
+            Background="{Binding PanelBackgroundBrush}"
+            BorderBrush="{Binding PanelBorderBrush}"
+            BorderThickness="1"
+            CornerRadius="8"
+            ClipToBounds="True"
+            MouseLeftButtonDown="RootBorder_OnMouseLeftButtonDown"
+            MouseMove="RootBorder_OnMouseMove"
+            MouseLeftButtonUp="RootBorder_OnMouseLeftButtonUp">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <Grid Grid.Column="0"
+                  Width="18"
+                  Height="18"
+                  Margin="8,0,7,0"
+                  VerticalAlignment="Center"
+                  ToolTip="{Binding StatusText}">
+                <Ellipse Fill="{Binding WarningBrush}"/>
+                <TextBlock Text="B"
+                           Foreground="#11151D"
+                           FontFamily="Segoe UI"
+                           FontSize="12"
+                           FontWeight="Black"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center"
+                           Margin="0,-1,0,0"/>
+                <Ellipse Width="7"
+                         Height="7"
+                         Fill="{Binding StatusBrush}"
+                         Stroke="{Binding PanelBackgroundBrush}"
+                         StrokeThickness="1.2"
+                         HorizontalAlignment="Right"
+                         VerticalAlignment="Bottom"/>
+            </Grid>
+
+            <ItemsControl Grid.Column="1" ItemsSource="{Binding Coins}" Margin="0,1,0,1">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <UniformGrid Rows="1"/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                                                                                                                        <DataTemplate DataType="{x:Type models:TickerViewModel}">
+                        <Border BorderBrush="{Binding DataContext.SeparatorBrush, RelativeSource={RelativeSource AncestorType=Window}}"
+                                BorderThickness="1,0,0,0"
+                                Padding="12,6,12,6">
+                            <Border.ToolTip>
+                                <ToolTip Content="{Binding ToolTipText}"/>
+                            </Border.ToolTip>
+                            <Viewbox Stretch="Uniform"
+                                     StretchDirection="DownOnly"
+                                     HorizontalAlignment="Stretch"
+                                     VerticalAlignment="Center">
+                                <Grid Width="216" Height="18">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="36"/>
+                                        <ColumnDefinition Width="10"/>
+                                        <ColumnDefinition Width="38"/>
+                                        <ColumnDefinition Width="10"/>
+                                        <ColumnDefinition Width="60"/>
+                                        <ColumnDefinition Width="10"/>
+                                        <ColumnDefinition Width="52"/>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Grid.Column="0"
+                                               Text="{Binding DisplaySymbol}"
+                                               Foreground="{Binding DataContext.SecondaryTextBrush, RelativeSource={RelativeSource AncestorType=Window}}"
+                                               FontSize="10.5"
+                                               FontWeight="SemiBold"
+                                               VerticalAlignment="Center"
+                                               HorizontalAlignment="Left"/>
+                                    <controls:MiniCandleChart Grid.Column="2"
+                                                              Width="34"
+                                                              Height="18"
+                                                              HorizontalAlignment="Center"
+                                                              VerticalAlignment="Center"
+                                                              Candles="{Binding Candles}"
+                                                              UpBrush="{Binding DataContext.CandleUpBrush, RelativeSource={RelativeSource AncestorType=Window}}"
+                                                              DownBrush="{Binding DataContext.CandleDownBrush, RelativeSource={RelativeSource AncestorType=Window}}"/>
+                                    <Viewbox Grid.Column="4"
+                                             Stretch="Uniform"
+                                             StretchDirection="DownOnly"
+                                             HorizontalAlignment="Right"
+                                             VerticalAlignment="Center">
+                                        <TextBlock Text="{Binding PriceText}"
+                                                   FontSize="12"
+                                                   FontWeight="SemiBold"
+                                                   Typography.NumeralAlignment="Tabular"/>
+                                    </Viewbox>
+                                    <TextBlock Grid.Column="6"
+                                               Text="{Binding ChangeText}"
+                                               Foreground="{Binding ChangeBrush}"
+                                               FontSize="9.5"
+                                               FontWeight="SemiBold"
+                                               VerticalAlignment="Center"
+                                               HorizontalAlignment="Right"
+                                               Style="{StaticResource ChangeTextStyle}"
+                                               Typography.NumeralAlignment="Tabular"/>
+                                </Grid>
+                            </Viewbox>
+                        </Border>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </Grid>
+    </Border>
+</Window>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
